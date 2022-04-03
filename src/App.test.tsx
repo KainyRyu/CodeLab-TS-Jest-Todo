@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, firstEvent, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 import 'jest-styled-components';
 
@@ -55,9 +55,9 @@ describe('<App />', () => {
     const toDoList = screen.getByTestId('toDoList');
     const length = toDoList.childElementCount;
 
-    const button = screen.getByText('Add')
-    fireEvent.click(button)
+    const button = screen.getByText('Add');
+    fireEvent.click(button);
 
-    expect(toDoList.childElementCount).toBe(length)
+    expect(toDoList.childElementCount).toBe(length);
   });
 });
