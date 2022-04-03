@@ -52,7 +52,7 @@ function App() {
   return (
     <Container>
       <Contents>
-        <ToDoListContainer>
+        <ToDoListContainer data-testid="toDoList">
           {todoList.map((item, index) => (
             <ToDoItem key={index} label={item} onDelete={() => deleteTodo(index)} />
           ))}
