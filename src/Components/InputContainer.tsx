@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components';
 
 import { Button } from 'Components';
 import { Input } from 'Components';
+import { useToDoList } from 'src/Contexts';
 
 const Container = Styled.div`
   display: flex;
 `;
 
-interface Props {
-  readonly todo?: string;
-  readonly onChange?: (text: string) => void;
-  readonly onAdd?: () => void;
-}
-
-export default function InputContainer({ todo, onChange, onAdd }: Props) {
+export default function InputContainer() {
+  const [toDo, setToDo] = useState('');
+  const { addToDo } = useToDoList();
   return (
     <Container>
-      <Input placeholder="Add your todos" value={todo} onChange={onChange} />
-      <Button label="Add" onClick={onAdd} />
+      <Input placeholder="Add your todos" value={toDo} onChange={setToDo} />
+      <Button
+        label="Add"
+        onClick={() => {
+          addToDo(toDo);
+          setToDo('');
+        }}
+      />
     </Container>
   );
 }

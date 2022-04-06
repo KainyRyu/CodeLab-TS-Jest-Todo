@@ -1,6 +1,7 @@
 import React from 'react';
 import Styled from 'styled-components';
 import { ToDoItem } from 'Components/ToDoItem';
+import { useToDoList } from 'src/Contexts';
 
 const Container = Styled.div`
   min-width: 350px;
@@ -10,15 +11,11 @@ const Container = Styled.div`
   margin-bottom: 20px;
 `;
 
-interface Props {
-  readonly todoList: string[];
-  readonly deleteToDo: (index: number) => void;
-}
-
-export default function ToDoList({ todoList, deleteToDo }: Props) {
+export default function ToDoList() {
+  const { toDoList, deleteToDo } = useToDoList();
   return (
     <Container data-testid="toDoList">
-      {todoList.map((item, index) => (
+      {toDoList.map((item, index) => (
         <ToDoItem key={item} label={item} onDelete={() => deleteToDo(index)} />
       ))}
     </Container>

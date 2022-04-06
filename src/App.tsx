@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Styled from 'styled-components';
-import { Button, ToDoItem } from 'Components';
-import { Input } from 'Components/Input';
+
+import { ToDoListProvider } from 'src/Contexts';
 import InputContainer from 'Components/InputContainer';
 import ToDoList from 'Components/ToDoList';
 
@@ -23,29 +23,15 @@ const Contents = Styled.div`
 `;
 
 function App() {
-  const [todo, setTodo] = useState('');
-  const [todoList, setTodoList] = useState<string[]>([]);
-
-  const addTodo = (): void => {
-    if (todo) {
-      setTodoList([...todoList, todo]);
-      setTodo('');
-    }
-  };
-
-  const deleteTodo = (index: number): void => {
-    let list = [...todoList];
-    list.splice(index, 1);
-    setTodoList(list);
-  };
-
   return (
-    <Container>
-      <Contents>
-        <ToDoList todoList={todoList} deleteToDo={deleteTodo} />
-        <InputContainer todo={todo} onChange={(text) => setTodo(text)} onAdd={addTodo} />
-      </Contents>
-    </Container>
+    <ToDoListProvider>
+      <Container>
+        <Contents>
+          <ToDoList />
+          <InputContainer />
+        </Contents>
+      </Container>
+    </ToDoListProvider>
   );
 }
 
