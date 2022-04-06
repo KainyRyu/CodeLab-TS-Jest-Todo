@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Styled from 'styled-components';
 import { Button, ToDoItem } from 'Components';
 import { Input } from 'Components/Input';
+import InputContainer from 'Components/InputContainer';
+import ToDoList from 'Components/ToDoList';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -18,18 +20,6 @@ const Contents = Styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-`;
-
-const InputContainer = Styled.div`
-display: flex;
-`;
-
-const ToDoListContainer = Styled.div`
-  min-width: 350px;
-  height: 400px;
-  overflow-y: scroll;
-  border: 1px solid #BDBDBD;
-  margin-bottom: 20px;
 `;
 
 function App() {
@@ -52,16 +42,8 @@ function App() {
   return (
     <Container>
       <Contents>
-        <ToDoListContainer data-testid="toDoList">
-          {todoList.map((item, index) => (
-            <ToDoItem key={index} label={item} onDelete={() => deleteTodo(index)} />
-          ))}
-        </ToDoListContainer>
-
-        <InputContainer>
-          <Input placeholder="HI" value={todo} onChange={(text) => setTodo(text)} />
-          <Button label="Add" onClick={addTodo} />
-        </InputContainer>
+        <ToDoList todoList={todoList} deleteToDo={deleteTodo} />
+        <InputContainer todo={todo} onChange={(text) => setTodo(text)} onAdd={addTodo} />
       </Contents>
     </Container>
   );
