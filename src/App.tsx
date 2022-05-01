@@ -1,9 +1,10 @@
 import React from 'react';
 import Styled from 'styled-components';
 
-import { ToDoListProvider } from 'src/Contexts';
+import { ToDoListProvider } from 'Contexts';
 import InputContainer from 'Components/InputContainer';
 import ToDoList from 'Components/ToDoList';
+import { Route, Routes } from 'react-router-dom';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -26,10 +27,14 @@ function App() {
   return (
     <ToDoListProvider>
       <Container>
-        <Contents>
-          <ToDoList />
-          <InputContainer />
-        </Contents>
+        <Routes>
+          <Route path="/">
+            <Contents>
+              <ToDoList />
+              <InputContainer />
+            </Contents>
+          </Route>
+        </Routes>
       </Container>
     </ToDoListProvider>
   );

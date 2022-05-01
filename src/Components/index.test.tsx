@@ -3,7 +3,7 @@ import 'jest-styled-components';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import InputContainer from './InputContainer';
-import { ToDoListProvider } from 'src/Contexts';
+import { ToDoListProvider } from 'Contexts';
 
 describe('<InputContainer/>', () => {
   it('renders component correctly', () => {

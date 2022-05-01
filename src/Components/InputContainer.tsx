@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 
 import { Button } from 'Components';
 import { Input } from 'Components';
-import { useToDoList } from 'src/Contexts';
+import { useToDoList } from 'Contexts';
 
 const Container = Styled.div`
   display: flex;
