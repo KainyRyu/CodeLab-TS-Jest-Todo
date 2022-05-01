@@ -7,22 +7,22 @@ describe('<App />', () => {
   it('renders component correctly', () => {
     const { container } = render(<App />);
 
-    const toDoList = screen.getByTestId('toDoList');
+    const toDoList = screen.getByTestId('toDoList') as HTMLElement;
     expect(toDoList).toBeInTheDocument();
+
     expect(toDoList.firstChild).toBeNull();
 
-    const input = screen.getByPlaceholderText('HI');
+    const input = screen.getByPlaceholderText('Add your todos');
     expect(input).toBeInTheDocument();
     const label = screen.getByText('Add');
     expect(label).toBeInTheDocument();
-
     expect(container).toMatchSnapshot();
   });
 
   it('adds and deletes ToDo items', () => {
     render(<App />);
 
-    const input = screen.getByPlaceholderText('HI');
+    const input = screen.getByPlaceholderText('Add your todos');
     const button = screen.getByText('Add');
     fireEvent.change(input, { target: { value: 'study react1' } });
     fireEvent.click(button);
@@ -59,5 +59,15 @@ describe('<App />', () => {
     fireEvent.click(button);
 
     expect(toDoList.childElementCount).toBe(length);
+  });
+
+  it('loads localStorage data', () => {
+    localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2","ToDo 3"]');
+    render(<App />);
+
+    expect(screen.getByText('ToDo 1')).toBeInTheDocument();
+    expect(screen.getByText('ToDo 2')).toBeInTheDocument();
+    expect(screen.getByText('ToDo 3')).toBeInTheDocument();
+    expect(screen.getAllByText('Delete').length).toBe(3);
   });
 });
