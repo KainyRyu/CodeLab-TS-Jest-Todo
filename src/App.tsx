@@ -6,6 +6,7 @@ import List from 'Pages/ListPage';
 import Add from 'Pages/AddPage';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DetailPage from 'Pages/DetailPage';
+import PageHeader from 'Components/PageHeader';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -20,6 +21,7 @@ function App() {
   return (
     <ToDoListProvider>
       <Container>
+        <PageHeader />
         <Routes>
           <Route path="/" element={<List />} />
           <Route path="/add" element={<Add />} />
