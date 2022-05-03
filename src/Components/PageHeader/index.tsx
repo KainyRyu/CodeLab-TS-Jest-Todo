@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, matchPath } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Styled from 'styled-components';
 
 const Container = Styled.div`

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Styled from 'styled-components';
 import InputContainer from 'Components/InputContainer';
 
@@ -15,11 +15,11 @@ const Container = Styled.div`
 `;
 
 export default function Add() {
-  const navigate = useNavigate();
+  const { replace } = useHistory();
 
   return (
     <Container>
-      <InputContainer onAdd={() => navigate('../success', { replace: true })} />
+      <InputContainer onAdd={() => replace('../success')} />
     </Container>
   );
 }

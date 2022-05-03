@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Button } from 'Components';
 import { useToDoList } from 'Contexts';
 import Styled from 'styled-components';
@@ -25,11 +25,11 @@ const ToDo = Styled.div`
 `;
 
 export default function DetailPage() {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const userId = Number.parseInt(id as string);
+  const { goBack } = useHistory();
+  const params: { id: string } = useParams();
+  const id = Number.parseInt(params.id);
   const { toDoList, deleteToDo } = useToDoList();
-  const toDo = toDoList[userId];
+  const toDo = toDoList[id];
 
   return (
     <Container>
@@ -39,8 +39,8 @@ export default function DetailPage() {
         backgroundColor="#FF1744"
         hoverColor="#F01440"
         onClick={() => {
-          deleteToDo(userId);
-          navigate(-1);
+          deleteToDo(id);
+          goBack();
         }}
       />
     </Container>

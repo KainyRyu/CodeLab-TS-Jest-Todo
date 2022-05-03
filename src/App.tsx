@@ -4,7 +4,7 @@ import Styled from 'styled-components';
 import { ToDoListProvider } from 'Contexts';
 import List from 'Pages/ListPage';
 import Add from 'Pages/AddPage';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import DetailPage from 'Pages/DetailPage';
 import PageHeader from 'Components/PageHeader';
 import NotFound from 'Pages/NotFound';
@@ -23,12 +23,12 @@ function App() {
     <ToDoListProvider>
       <Container>
         <PageHeader />
-        <Routes>
-          <Route path="/" element={<List />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Switch>
+          <Route path="/" component={List} />
+          <Route path="/add" component={Add} />
+          <Route path="/detail/:id" component={DetailPage} />
+          <Route path="*" component={NotFound} />
+        </Switch>
       </Container>
     </ToDoListProvider>
   );
