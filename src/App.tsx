@@ -7,6 +7,7 @@ import Add from 'Pages/AddPage';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DetailPage from 'Pages/DetailPage';
 import PageHeader from 'Components/PageHeader';
+import NotFound from 'Pages/NotFound';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -26,7 +27,7 @@ function App() {
           <Route path="/" element={<List />} />
           <Route path="/add" element={<Add />} />
           <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="*" element={<Navigate replace to="/" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Container>
     </ToDoListProvider>
