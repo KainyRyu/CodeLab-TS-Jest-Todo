@@ -14,12 +14,12 @@ const Container = Styled.div`
   align-items: center;
 `;
 
-export default function Add() {
+export default function AddPage() {
   const { replace } = useHistory();
 
   return (
     <Container>
-      <InputContainer onAdd={() => replace('../success')} />
+      <InputContainer onAdd={() => replace('/')} />
     </Container>
   );
 }
