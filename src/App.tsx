@@ -3,7 +3,7 @@ import Styled from 'styled-components';
 
 import { ToDoListProvider } from 'Contexts';
 import List from 'Pages/ListPage';
-import Add from 'Pages/AddPage';
+import AddPage from 'Pages/AddPage';
 import { Route, Switch } from 'react-router-dom';
 import DetailPage from 'Pages/DetailPage';
 import PageHeader from 'Components/PageHeader';
@@ -24,8 +24,8 @@ function App() {
       <Container>
         <PageHeader />
         <Switch>
-          <Route path="/" component={List} />
-          <Route path="/add" component={Add} />
+          <Route exact path="/" component={List} />
+          <Route path="/add" component={AddPage} />
           <Route path="/detail/:id" component={DetailPage} />
           <Route path="*" component={NotFound} />
         </Switch>
