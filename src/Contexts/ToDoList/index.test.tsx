@@ -55,9 +55,6 @@ describe('ToDoList Context', () => {
     expect(toDoItem2.getAttribute('href')).toBe('/detail/1');
     const toDoItem3 = screen.getByText('ToDo 3');
     expect(toDoItem3.getAttribute('href')).toBe('/detail/2');
-    expect(screen.getByText('ToDo 1')).toBeInTheDocument();
-    expect(screen.getByText('ToDo 2')).toBeInTheDocument();
-    expect(screen.getByText('ToDo 3')).toBeInTheDocument();
   });
 
   it('uses addToDo function', () => {
@@ -84,7 +81,6 @@ describe('ToDoList Context', () => {
     expect(localStorage.getItem('ToDoList')).toBeNull();
     const button = screen.getByText('Add ToDo');
     fireEvent.click(button);
-    expect(screen.getByText('study react 1')).toBeInTheDocument();
     expect(localStorage.getItem('ToDoList')).toBe('["study react 1"]');
   });
 
