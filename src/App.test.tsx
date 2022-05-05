@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import { Router, useLocation } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import App from './App';
 import 'jest-styled-components';
@@ -8,85 +8,108 @@ import 'jest-styled-components';
 describe('<App />', () => {
   it('renders component correctly', () => {
     const history = createMemoryHistory();
+    history.push('/');
+
     const { container } = render(
       <Router history={history}>
         <App />
       </Router>,
     );
 
-    const toDoList = screen.getByTestId('toDoList') as HTMLElement;
+    const header = screen.getByText('to do list');
+    expect(header).toBeInTheDocument();
+    const toDoList = screen.getByTestId('toDoList');
     expect(toDoList).toBeInTheDocument();
-
     expect(toDoList.firstChild).toBeNull();
 
-    const input = screen.getByText('Add your todos');
-    expect(input).toBeInTheDocument();
-    const label = screen.getByText('Add');
+    const label = screen.getByText('+');
     expect(label).toBeInTheDocument();
+
     expect(container).toMatchSnapshot();
   });
 
-  it('adds and deletes ToDo items', () => {
+  it('goes to Add page and goBack to List page', () => {
     const history = createMemoryHistory();
-    render(
+    history.push('/');
+
+    const { container } = render(
       <Router history={history}>
         <App />
       </Router>,
     );
+    const addButton = screen.getByText('+');
+    fireEvent.click(addButton);
 
-    const input = screen.getByText('Add your todos');
-    const button = screen.getByText('+');
-    fireEvent.change(input, { target: { value: 'study react1' } });
-    fireEvent.click(button);
+    const header = screen.getByText('add to do');
+    expect(header).toBeInTheDocument();
 
-    const todoItem = screen.getByText('study react1');
-    expect(todoItem).toBeInTheDocument();
-    const deleteButton = screen.getByText('Delete');
-    expect(deleteButton).toBeInTheDocument();
+    const goBack = screen.getByText('Go Back');
+    expect(goBack).toBeInTheDocument();
+    const input = screen.getByPlaceholderText('Add your todos');
+    expect(input).toBeInTheDocument();
+    const button = screen.getByText('Add');
+    expect(button).toBeInTheDocument();
 
+    expect(container).toMatchSnapshot();
+
+    fireEvent.click(goBack);
+    expect(header.textContent).toBe('to do list');
     const toDoList = screen.getByTestId('toDoList');
-    expect(toDoList.childElementCount).toBe(1);
-
-    fireEvent.change(input, { target: { value: 'study react 2' } });
-    fireEvent.click(button);
-
-    const todoItem2 = screen.getByText('study react 2');
-    expect(todoItem2).toBeInTheDocument();
-    expect(toDoList.childElementCount).toBe(2);
-
-    const deleteButtons = screen.getAllByText('Delete');
-    fireEvent.click(deleteButtons[0]);
-
-    // expect(todoItem).not.toBeInTheDocument();
-    expect(toDoList.childElementCount).toBe(1);
+    expect(toDoList).toBeInTheDocument();
   });
 
-  it('does not add empty ToDo', () => {
+  it('goes to Detail page and go back to List page', () => {
+    localStorage.setItem('ToDoList', '["ToDo 1","ToDo 2","ToDo 3"]');
+
     const history = createMemoryHistory();
-    render(
+    history.push('/');
+
+    const { container } = render(
       <Router history={history}>
         <App />
       </Router>,
     );
 
-    const toDoList = screen.getByTestId('toDoList');
-    const length = toDoList.childElementCount;
+    const header = screen.getByText('to do list');
+    expect(header).toBeInTheDocument();
+    const toDo2 = screen.getByText('ToDo 2');
+    fireEvent.click(toDo2);
+    expect(header.textContent).toBe('detail');
+    const goBack = screen.getByText('Go Back');
+    expect(goBack).toBeInTheDocument();
+    const button = screen.getByText('Delete');
+    expect(button).toBeInTheDocument();
 
-    const button = screen.getByText('+');
+    expect(container).toMatchSnapshot();
+
     fireEvent.click(button);
-
-    expect(toDoList.childElementCount).toBe(length);
+    expect(header).toBeInTheDocument();
+    const toDoList = screen.getByTestId('toDoList');
+    expect(toDoList).toBeInTheDocument();
   });
 
-  it('loads localStorage data', () => {
-    localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2","ToDo 3"]');
+  it('shows Not Found page if the user enters the wrong URL, and go back to List page', () => {
     const history = createMemoryHistory();
-    render(
+    history.push('/hello');
+
+    const { container } = render(
       <Router history={history}>
         <App />
       </Router>,
     );
 
-    expect(screen.getAllByText('Delete').length).toBe(3);
+    const header = screen.getByText('error');
+    expect(header).toBeInTheDocument();
+    const goBack = screen.getByText('Go Back');
+    expect(goBack).toBeInTheDocument();
+    const notFoundMessage = screen.getByText('Not Found🥲');
+    expect(notFoundMessage).toBeInTheDocument();
+
+    expect(container).toMatchSnapshot();
+
+    fireEvent.click(goBack);
+    expect(header.textContent).toBe('to do list');
+    const toDoList = screen.getByTestId('toDoList');
+    expect(toDoList).toBeInTheDocument();
   });
 });
