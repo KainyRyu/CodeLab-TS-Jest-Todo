@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { Router, useLocation } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { fireEvent, render, screen } from '@testing-library/react';
 import 'jest-styled-components';
@@ -59,5 +59,60 @@ describe('<List/>', () => {
     fireEvent.click(toDoItem.nextElementSibling as HTMLElement);
     expect(toDoItem).not.toBeInTheDocument();
     expect(JSON.parse(localStorage.getItem('ToDoList') as string)).not.toContain('ToDo 2');
+  });
+
+  it('moves to detail page', () => {
+    const TestComponent = (): JSX.Element => {
+      const { pathname } = useLocation();
+      return <div>{pathname}</div>;
+    };
+    const history = createMemoryHistory();
+    history.push('/');
+
+    localStorage.setItem('ToDoList', '["ToDo 1","ToDo 2","ToDo 3"]');
+
+    render(
+      <ToDoListProvider>
+        <Router history={history}>
+          <TestComponent />
+          <ListPage />
+        </Router>
+      </ToDoListProvider>,
+    );
+
+    const url = screen.getByText('/');
+    expect(url).toBeInTheDocument();
+
+    const item3 = screen.getByText('ToDo 3');
+    expect(item3.getAttribute('href')).toBe('/detail/2');
+    fireEvent.click(item3);
+    expect(url.textContent).toBe('/detail/2');
+  });
+
+  it('moves to add page', () => {
+    const TestComponent = (): JSX.Element => {
+      const { pathname } = useLocation();
+      return <div>{pathname}</div>;
+    };
+
+    const history = createMemoryHistory();
+    history.push('/');
+
+    render(
+      <ToDoListProvider>
+        <Router history={history}>
+          <TestComponent />
+          <ListPage />
+        </Router>
+      </ToDoListProvider>,
+    );
+
+    const url = screen.getByText('/');
+    expect(url).toBeInTheDocument();
+
+    const button = screen.getByText('+');
+    fireEvent.click(button);
+
+    expect(url.textContent).toBe('/add');
   });
 });
