@@ -37,7 +37,7 @@ const Label = Styled.div`
 export const Button = ({
   label,
   backgroundColor = '#304FFE',
-  hoverColor = '#1E40FF',
+  hoverColor = '#1A80FF;',
   onClick,
 }: Props) => {
   return (

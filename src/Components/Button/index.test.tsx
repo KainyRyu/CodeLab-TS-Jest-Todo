@@ -10,14 +10,14 @@ describe('<Button />', () => {
     expect(label).toBeInTheDocument();
     const parent = label.parentElement;
     expect(parent).toHaveStyleRule('background-color', '#304FFE');
-    expect(parent).toHaveStyleRule('background-color', '#1E40FF', { modifier: ':hover' });
+    expect(parent).toHaveStyleRule('background-color', '#1A80FF', { modifier: ':hover' });
 
     expect(container).toMatchSnapshot();
   });
 
   it('changes backgroundColor and hoverColor Props', () => {
-    const backgroundColor = '#FF1744';
-    const hoverColor = '#F01440';
+    const backgroundColor = '#EE5555';
+    const hoverColor = '#EE3333';
     render(
       <Button label="Button Test" backgroundColor={backgroundColor} hoverColor={hoverColor} />,
     );

@@ -28,7 +28,7 @@ export const ToDoItem = ({ id, label, onDelete }: Props) => {
   return (
     <Container>
       <Label to={`/detail/${id}`}>{label}</Label>
-      <Button label="Delete" backgroundColor="#FF1744" hoverColor="#F01440" onClick={onDelete} />
+      <Button label="Delete" backgroundColor="#EE5555" hoverColor="#EE3333" onClick={onDelete} />
     </Container>
   );
 };

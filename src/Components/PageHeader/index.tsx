@@ -10,7 +10,7 @@ const Container = Styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: dodgerblue;
+  background-color: #304FFE;
 `;
 
 const Title = Styled.div`

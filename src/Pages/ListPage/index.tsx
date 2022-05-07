@@ -30,7 +30,7 @@ const AddButton = Styled(Link)`
   box-shadow:5px 5px 10px rgba(0,0,0,0.2);
   text-decoration: none;
   &:hover {
-    background-color: #1E40FE;
+    background-color: #1A80FF;
   }
   &:active {
     box-shadow: inset 5px 5px 10px rgba(0,0,0,0.2);
