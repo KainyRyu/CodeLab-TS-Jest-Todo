@@ -1,6 +1,6 @@
 # About this project
-: To Do List; It's a react project practicing jest(focused), ts and styled-components
-Using LocalStorage, save your todos and show on the list and delete.
+: To Do List ;It's a react project practicing **jest(focused)**, ts and styled-components
+Using LocalStorage, you can save your todos, get the to do list and delete.
 
 
 ### Settings
